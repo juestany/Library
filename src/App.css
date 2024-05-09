@@ -2,35 +2,40 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Style for the table */
+.books-table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Style for table header */
+.books-table th {
+  background-color: #f2f2f2;
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Style for table rows */
+.books-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
 }
 
-.App-link {
-  color: #61dafb;
+/* Alternate row background color */
+.books-table tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
+
+/* Hover effect on rows */
+.books-table tr:hover {
+  background-color: #ddd;
+}
+
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: rotate(1000000deg);
   }
   to {
     transform: rotate(360deg);
