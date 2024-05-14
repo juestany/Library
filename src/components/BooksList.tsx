@@ -1,5 +1,6 @@
 import React from 'react';
 import Book from './Book';
+import MenuAppBar from "./MenuAppBar";
 
 // constant books
 const books = [
@@ -88,33 +89,36 @@ const books = [
 
 const BooksList: React.FC = () => {
     return (
-        <table className={"books-table"}>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>ISBN</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Publisher</th>
-                <th>Publication year</th>
-                <th>Available copies</th>
-            </tr>
-            </thead>
-            <tbody>
-            {books.map(book => (
-                <Book
-                    key={book.id}
-                    id={book.id}
-                    isbn={book.isbn}
-                    title={book.title}
-                    author={book.author}
-                    publisher={book.publisher}
-                    publicationYear={book.publicationYear}
-                    availableCopies={book.availableCopies}
-                />
-            ))}
-            </tbody>
-        </table>
+        <>
+            <MenuAppBar/>
+            <table className="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Publisher</th>
+                    <th>Publication year</th>
+                    <th>Available copies</th>
+                </tr>
+                </thead>
+                <tbody>
+                {books.map(book => (
+                    <Book
+                        key={book.id}
+                        id={book.id}
+                        isbn={book.isbn}
+                        title={book.title}
+                        author={book.author}
+                        publisher={book.publisher}
+                        publicationYear={book.publicationYear}
+                        availableCopies={book.availableCopies}
+                    />
+                ))}
+                </tbody>
+            </table>
+        </>
     );
 };
 
