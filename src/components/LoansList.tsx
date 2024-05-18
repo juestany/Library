@@ -6,7 +6,7 @@ import MenuAppBar from "./MenuAppBar";
 const loans = [
     {
         id: 3,
-        bookTitle: 'Design Patterns: Elements of Reusable Object-Oriented Software',
+        bookId: 6,
         userName: 'Emily Johnson',
         loanDate: '2024-05-09',
         loanPeriod: '21 days',
@@ -14,7 +14,7 @@ const loans = [
     },
     {
         id: 4,
-        bookTitle: 'Refactoring: Improving the Design of Existing Code',
+        bookId: 3,
         userName: 'Michael Brown',
         loanDate: '2024-05-12',
         loanPeriod: '10 days',
@@ -22,7 +22,7 @@ const loans = [
     },
     {
         id: 5,
-        bookTitle: 'The Pragmatic Programmer: Your Journey to Mastery',
+        bookId: 1,
         userName: 'Sophia Wilson',
         loanDate: '2024-05-11',
         loanPeriod: '14 days',
@@ -30,7 +30,7 @@ const loans = [
     },
     {
         id: 6,
-        bookTitle: 'Domain-Driven Design: Tackling Complexity in the Heart of Software',
+        bookId: 2,
         userName: 'David Lee',
         loanDate: '2024-05-07',
         loanPeriod: '7 days',
@@ -38,7 +38,7 @@ const loans = [
     },
     {
         id: 7,
-        bookTitle: 'Head First Design Patterns: A Brain-Friendly Guide',
+        bookId: 5,
         userName: 'Olivia Taylor',
         loanDate: '2024-05-06',
         loanPeriod: '14 days',
@@ -55,7 +55,7 @@ const LoansList: React.FC = () => {
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Book Title</th>
+                    <th>Book Id</th>
                     <th>User Name</th>
                     <th>Loan Date</th>
                     <th>Loan Period</th>
@@ -67,7 +67,7 @@ const LoansList: React.FC = () => {
                     <Loan
                         key={loan.id}
                         id={loan.id}
-                        bookTitle={loan.bookTitle}
+                        bookId={loan.bookId}
                         userName={loan.userName}
                         loanDate={loan.loanDate}
                         loanPeriod={loan.loanPeriod}
