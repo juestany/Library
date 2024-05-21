@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -7,6 +7,14 @@ import IconButton from '@mui/material/IconButton';
 import LogoutIcon from '@mui/icons-material/Logout'; // Import logout icon
 
 export default function MenuAppBar() {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+
+        // Redirect to login page
+        navigate('/login');
+    };
+
     return (
         <AppBar position="static">
             <Toolbar>
@@ -25,7 +33,7 @@ export default function MenuAppBar() {
                 </Typography>
 
                 {/* Logout text and icon */}
-                <IconButton size="large" color="inherit">
+                <IconButton size="large" color="inherit" onClick={handleLogout}>
                     <Typography variant="h6" component="div" style={{ marginRight: '8px' }}>
                         Log out
                     </Typography>
