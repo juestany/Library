@@ -1,11 +1,11 @@
-import axios, { AxiosError, AxiosResponse, AxiosInstance } from 'axios';
-import { LoginDto, LoginResponseDto } from "./dto/login.dto";
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import { LoginDto, LoginResponseDto } from './dto/login.dto';
 
 export type ClientResponse<T> = {
     success: boolean;
     data: T;
     statusCode: number;
-}
+};
 
 export class LibraryClient {
     private client: AxiosInstance;
@@ -13,7 +13,7 @@ export class LibraryClient {
     constructor() {
         this.client = axios.create({
             baseURL: 'http://localhost:8080',
-        })
+        });
     }
 
     public async login(
@@ -24,9 +24,34 @@ export class LibraryClient {
                 '/login',
                 data,
             );
+            console.log(response.data);
 
             this.client.defaults.headers.common['Authorization'] =
-                'Bearer ' + response.data.token;
+                `Bearer ${response.data}`;
+
+            return {
+                success: true,
+                data: response.data,
+                statusCode: response.status,
+            };
+        } catch (error) {
+            const axiosError = error as AxiosError<Error>;
+
+            return {
+                success: false,
+                data: null,
+                statusCode: axiosError.response?.status || 0,
+            };
+        }
+    }
+
+    public async getBooks(): Promise<ClientResponse<any | null>> {
+        try {
+            const response = await this.client.get('/api/books');
+            console.log(response.data);
+
+            this.client.defaults.headers.common['Authorization'] =
+                `Bearer ${response.data}`;
 
             return {
                 success: true,

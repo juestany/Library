@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Book from './Book';
+import axios from 'axios';
 import MenuAppBar from "./MenuAppBar";
+import { TextField, Button, Grid, Box, Container } from '@mui/material'
+import {useApi} from "../api/ApiProvider";
 
 // constant books
-const books = [
+const init_books = [
     {
         id: 1,
         isbn: '9780132350884',
@@ -87,37 +90,143 @@ const books = [
     }
 ];
 
-const BooksList: React.FC = () => {
+function BooksList() {
+
+    const apiClient = useApi();
+
+    apiClient.getBooks().then((response) => {
+        console.log(response);
+    });
+
+    const [books, setBooks] = useState(init_books);
+    const [newBook, setNewBook] = useState({
+        isbn: '',
+        title: '',
+        author: '',
+        publisher: '',
+        publicationYear: '',
+        availableCopies: ''
+    });
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setNewBook({ ...newBook, [name]: value });
+    };
+
+    const handleAddBook = async () => {
+        try {
+            const response = await axios.post('http://localhost:8080/api/books', newBook);
+            setBooks([...books, { ...response.data }]);
+            setNewBook({
+                isbn: '',
+                title: '',
+                author: '',
+                publisher: '',
+                publicationYear: '',
+                availableCopies: ''
+            });
+        } catch (error) {
+            console.error('Error adding book:', error);
+        }
+    };
+
     return (
         <>
-            <MenuAppBar/>
-            <table className="table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>ISBN</th>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Publisher</th>
-                    <th>Publication year</th>
-                    <th>Available copies</th>
-                </tr>
-                </thead>
-                <tbody>
-                {books.map(book => (
-                    <Book
-                        key={book.id}
-                        id={book.id}
-                        isbn={book.isbn}
-                        title={book.title}
-                        author={book.author}
-                        publisher={book.publisher}
-                        publicationYear={book.publicationYear}
-                        availableCopies={book.availableCopies}
-                    />
-                ))}
-                </tbody>
-            </table>
+            <MenuAppBar />
+            <Container>
+                <table className="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ISBN</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Publisher</th>
+                        <th>Publication year</th>
+                        <th>Available copies</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {books.map(book => (
+                        <Book
+                            key={book.id}
+                            id={book.id}
+                            isbn={book.isbn}
+                            title={book.title}
+                            author={book.author}
+                            publisher={book.publisher}
+                            publicationYear={book.publicationYear}
+                            availableCopies={book.availableCopies}
+                        />
+                    ))}
+                    </tbody>
+                </table>
+
+                <Box mt={4}>
+                    <h3>Add a book</h3>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                label="ISBN"
+                                name="isbn"
+                                value={newBook.isbn}
+                                onChange={handleInputChange}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                label="Title"
+                                name="title"
+                                value={newBook.title}
+                                onChange={handleInputChange}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                label="Author"
+                                name="author"
+                                value={newBook.author}
+                                onChange={handleInputChange}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                label="Publisher"
+                                name="publisher"
+                                value={newBook.publisher}
+                                onChange={handleInputChange}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                label="Publication Year"
+                                name="publicationYear"
+                                value={newBook.publicationYear}
+                                onChange={handleInputChange}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                label="Available Copies"
+                                name="availableCopies"
+                                value={newBook.availableCopies}
+                                onChange={handleInputChange}
+                                fullWidth
+                            />
+                        </Grid>
+                    </Grid>
+                    <Box mt={2}>
+                        <Button variant="contained" color="primary" onClick={handleAddBook}>
+                            Add Book
+                        </Button>
+                    </Box>
+                </Box>
+            </Container>
         </>
     );
 };

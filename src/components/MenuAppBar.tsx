@@ -19,7 +19,7 @@ export default function MenuAppBar() {
         <AppBar position="static">
             <Toolbar>
                 {/* Home icon and text */}
-                <Link to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Link to="/api/home" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <IconButton size="large" edge="start" color="inherit" aria-label="menu">
                         <Typography variant="h6" component="div">
                             Homepage

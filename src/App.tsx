@@ -15,9 +15,9 @@ function App() {
                   <Routes>
                       <Route path="/" element={<Navigate to="/login"/>}/>
                       <Route path="/login" element={<LoginForm/>}/>
-                      <Route path="/books" element={<BooksList/>}/>
-                      <Route path="/home" element={<HomePage/>}/>
-                      <Route path="/loans" element={<LoansPage/>}/>
+                      <Route path="/api/books" element={<BooksList/>}/>
+                      <Route path="/api/home" element={<HomePage/>}/>
+                      <Route path="/api/loans" element={<LoansPage/>}/>
                   </Routes>
             </ApiProvider>
             </BrowserRouter>

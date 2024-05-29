@@ -15,7 +15,7 @@ const onSubmit = useCallback(
         apiClient.login(values).then((response) => {
             console.log(response);
             if (response.success) {
-                navigate('/home');
+                navigate('/api/home');
             } else {
                 formik.setFieldError('username', 'Invalid username or password');
             }
