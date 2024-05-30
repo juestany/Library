@@ -6,6 +6,7 @@ interface User {
     email: string,
     name: string,
     role: string,
+    password: string,
 }
 
 const User: React.FC<User> = (props) => {
@@ -16,6 +17,7 @@ const User: React.FC<User> = (props) => {
             <td>{props.email}</td>
             <td>{props.name}</td>
             <td>{props.role}</td>
+            <td>{props.password}</td>
         </tr>
     );
 };

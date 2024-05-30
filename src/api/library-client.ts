@@ -45,6 +45,9 @@ export class LibraryClient {
         }
     }
 
+    /**
+     * BOOKS
+     */
     public async getBooks(): Promise<ClientResponse<any | null>> {
         try {
             const response = await this.client.get('/api/books');
@@ -87,10 +90,79 @@ export class LibraryClient {
         }
     }
 
+    /**
+     * USERS
+     */
     public async getUsers(): Promise<ClientResponse<any | null>> {
         try {
             const response = await this.client.get('/api/users');
             console.log(response.data)
+
+            return {
+                success: true,
+                data: response.data,
+                statusCode: response.status,
+            };
+        } catch (error) {
+            const axiosError = error as AxiosError<Error>;
+
+            return {
+                success: false,
+                data: null,
+                statusCode: axiosError.response?.status || 0,
+            };
+        }
+    }
+
+    public async addUser(data: any): Promise<ClientResponse<any | null>> {
+        try {
+            const response = await this.client.post('/api/users', data);
+            console.log(response.data);
+
+            return {
+                success: true,
+                data: response.data,
+                statusCode: response.status,
+            };
+        } catch (error) {
+            const axiosError = error as AxiosError<Error>;
+
+            return {
+                success: false,
+                data: null,
+                statusCode: axiosError.response?.status || 0,
+            };
+        }
+    }
+
+    /**
+     * LOANS
+     */
+    public async getLoans(): Promise<ClientResponse<any | null>> {
+        try {
+            const response = await this.client.get('/api/loans');
+            console.log(response.data)
+
+            return {
+                success: true,
+                data: response.data,
+                statusCode: response.status,
+            };
+        } catch (error) {
+            const axiosError = error as AxiosError<Error>;
+
+            return {
+                success: false,
+                data: null,
+                statusCode: axiosError.response?.status || 0,
+            };
+        }
+    }
+
+    public async addLoan(data: any): Promise<ClientResponse<any | null>> {
+        try {
+            const response = await this.client.post('/api/loans', data);
+            console.log(response.data);
 
             return {
                 success: true,

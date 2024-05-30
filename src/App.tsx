@@ -1,12 +1,12 @@
 import React from 'react';
 import './index.css';
-import LoginForm from './components/LoginForm';
-import BooksList from "./components/BooksList";
+import LoginForm from './components/login/LoginForm';
+import BooksList from "./components/books/BooksList";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import HomePage from "./components/HomePage";
-import LoansPage from "./components/LoansList";
+import LoansPage from "./components/loans/LoansList";
 import ApiProvider from "./api/ApiProvider";
-import UsersList from "./components/UsersList";
+import UsersList from "./components/users/UsersList";
 
 function App() {
   return (
