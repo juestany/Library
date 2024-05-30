@@ -1,16 +1,18 @@
 import React from 'react';
+import {number, string} from "yup";
 
-interface BookProps {
-    id: number;
-    isbn: string;
-    title: string;
-    author: string;
-    publisher: string;
-    publicationYear: number;
-    availableCopies: number;
+interface Book {
+    id: number,
+    isbn: string,
+    title: string,
+    author: string,
+    publisher: string,
+    publicationYear: number,
+    availableCopies: number,
+    key: number
 }
 
-const Book: React.FC<BookProps> = (props) => {
+const Book: React.FC<Book> = (props) => {
     return (
         <tr>
             <td>{props.id}</td>

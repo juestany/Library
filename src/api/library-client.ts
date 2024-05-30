@@ -48,10 +48,7 @@ export class LibraryClient {
     public async getBooks(): Promise<ClientResponse<any | null>> {
         try {
             const response = await this.client.get('/api/books');
-            console.log(response.data);
-
-            this.client.defaults.headers.common['Authorization'] =
-                `Bearer ${response.data}`;
+            console.log(response.data)
 
             return {
                 success: true,
@@ -69,6 +66,26 @@ export class LibraryClient {
         }
     }
 
+    public async addBook(data: any): Promise<ClientResponse<any | null>> {
+        try {
+            const response = await this.client.post('/api/books', data);
+            console.log(response.data);
+
+            return {
+                success: true,
+                data: response.data,
+                statusCode: response.status,
+            };
+        } catch (error) {
+            const axiosError = error as AxiosError<Error>;
+
+            return {
+                success: false,
+                data: null,
+                statusCode: axiosError.response?.status || 0,
+            };
+        }
+    }
 
 }
 

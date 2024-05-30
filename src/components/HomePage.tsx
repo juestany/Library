@@ -1,7 +1,6 @@
 import { Box, Button } from '@mui/material';
 import { Link, Outlet } from 'react-router-dom';
 import MenuAppBar from "./MenuAppBar";
-import {useApi} from "../api/ApiProvider";
 
 function HomePage() {
 
