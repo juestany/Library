@@ -6,6 +6,7 @@ import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import HomePage from "./components/HomePage";
 import LoansPage from "./components/LoansList";
 import ApiProvider from "./api/ApiProvider";
+import UsersList from "./components/UsersList";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
                       <Route path="/api/books" element={<BooksList/>}/>
                       <Route path="/api/home" element={<HomePage/>}/>
                       <Route path="/api/loans" element={<LoansPage/>}/>
+                      <Route path="/api/users" element={<UsersList/>}/>
                   </Routes>
             </ApiProvider>
             </BrowserRouter>

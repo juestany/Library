@@ -46,7 +46,6 @@ function BooksList() {
         []
     );
 
-
     useEffect(() => {
         apiClient.getBooks().then((response) => {
             // console.log(response.data);

@@ -13,6 +13,9 @@ function HomePage() {
             <Button variant="contained" component={Link} to="/api/loans" sx={{ m: 1 }}>
                 Loans
             </Button>
+            <Button variant="contained" component={Link} to="/api/users" sx={{ m: 1 }}>
+                Users
+            </Button>
             <Outlet />
         </Box>
     );
