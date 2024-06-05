@@ -42,7 +42,7 @@ function UsersList() {
             console.log(response.data);
             setUsers(response.data);
         });
-    }, [apiClient]);
+    }, []);
 
     return (
         <>

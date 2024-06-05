@@ -24,7 +24,7 @@ function BooksList() {
                 }
             });
         },
-        [apiClient, books]
+        [apiClient]
     );
 
     const validationSchema = useMemo(

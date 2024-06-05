@@ -6,15 +6,6 @@ import MenuAppBar from "../MenuAppBar";
 import Loan from "./Loan";
 import { useApi } from "../../api/ApiProvider";
 
-interface Loan {
-    id: number;
-    bookId: number;
-    userId: string;
-    loanDate: string;
-    loanPeriod: string;
-    returnDate: string;
-}
-
 function LoansList() {
     const apiClient = useApi();
     const [loans, setLoans] = useState<Loan[]>([]);
@@ -22,7 +13,7 @@ function LoansList() {
     const onSubmit = useCallback(
         (values: Loan, formik: any) => {
             apiClient.addLoan(values).then((response) => {
-                // console.log(response.data);
+                console.log(response.data);
                 if (response.success) {
                     setLoans([...loans, response.data]);
                     formik.resetForm();
@@ -31,7 +22,7 @@ function LoansList() {
                 }
             });
         },
-        [apiClient, loans]
+        [apiClient]
     );
 
     const validationSchema = useMemo(
@@ -48,10 +39,10 @@ function LoansList() {
 
     useEffect(() => {
         apiClient.getLoans().then((response) => {
-            console.log(response.data);
+            // console.log(response.data);
             setLoans(response.data);
         });
-    }, [apiClient]);
+    }, []);
 
     return (
         <>
@@ -88,7 +79,7 @@ function LoansList() {
                         initialValues={{
                             id: 0,
                             bookId: 0,
-                            userId: '',
+                            userId: 0,
                             loanDate: '',
                             loanPeriod: '',
                             returnDate: ''

@@ -1,18 +1,15 @@
 import React from 'react';
-import {date} from "yup";
 
-interface LoanProps {
+interface Loan {
     id: number;
     bookId: number;
-    userId: string;
+    userId: number;
     loanDate: string;
     loanPeriod: string;
     returnDate: string;
 }
 
-const Loan: React.FC<LoanProps> = (props) => {
-    const { id, bookId, userId, loanDate, loanPeriod, returnDate } = props; // Destructure props
-
+const Loan: React.FC<Loan> = (props) => {
     return (
         <tr>
             <td>{props.id}</td>
