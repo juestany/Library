@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ApiProvider from "./api/ApiProvider";
+import {LanguageProvider} from "./api/LanguageProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+          <LanguageProvider>
+            <App />
+          </LanguageProvider>
   </React.StrictMode>
 );
 

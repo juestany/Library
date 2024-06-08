@@ -5,11 +5,14 @@ import MenuAppBar from "../MenuAppBar";
 import { TextField, Button, Grid, Box, Container } from '@mui/material'
 import {useApi} from "../../api/ApiProvider";
 import {Formik} from "formik";
+import {useLanguage} from "../../api/LanguageProvider";
 
 function BooksList() {
 
     const apiClient = useApi();
     const [books, setBooks] = useState<Book[]>([])
+    // @ts-ignore
+    const { language } = useLanguage();
 
     const onSubmit = useCallback(
         (values: Book, formik: any) => {
@@ -58,17 +61,18 @@ function BooksList() {
     return (
         <>
             <MenuAppBar />
+            <h1>{language === 'English' ? 'Books' : 'Książki'}</h1>
             <Container style={{marginTop: '2rem'}}>
                 <table className="table">
                     <thead>
                     <tr>
                         <th>ID</th>
                         <th>ISBN</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Publisher</th>
-                        <th>Publication year</th>
-                        <th>Available copies</th>
+                        <th>{language === 'English' ? 'Title' : 'Tytuł'}</th>
+                        <th>{language === 'English' ? 'Author' : 'Autor'}</th>
+                        <th>{language === 'English' ? 'Publisher' : 'Wydawnictwo'}</th>
+                        <th>{language === 'English' ? 'Publication year' : 'Rok publikacji'}</th>
+                        <th>{language === 'English' ? 'Available copies' : 'Dostępne kopie'}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -87,7 +91,7 @@ function BooksList() {
                     </tbody>
                 </table>
                 <Box mt={4}>
-                    <h3>Add a book</h3>
+                    <h3>{language === 'English' ? 'Add a book' : 'Dodaj książkę'}</h3>
                     <Formik
                         initialValues={{
                             id: 0,
@@ -121,8 +125,8 @@ function BooksList() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Title"
-                                            name="title"
+                                            label={language === 'English' ? 'Title' : 'Tytuł'}
+                                            name='title'
                                             value={formik.values.title}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
@@ -133,8 +137,8 @@ function BooksList() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Author"
-                                            name="author"
+                                            label={language === 'English' ? 'Author' : 'Autor'}
+                                            name='author'
                                             value={formik.values.author}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
@@ -145,8 +149,8 @@ function BooksList() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Publisher"
-                                            name="publisher"
+                                            label={language === 'English' ? 'Publisher' : 'Wydawnictwo'}
+                                            name='publisher'
                                             value={formik.values.publisher}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
@@ -157,8 +161,8 @@ function BooksList() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Publication Year"
-                                            name="publicationYear"
+                                            label={language === 'English' ? 'Publication year' : 'Rok publikacji'}
+                                            name='publicationYear'
                                             type="number"
                                             value={formik.values.publicationYear}
                                             onChange={formik.handleChange}
@@ -170,8 +174,8 @@ function BooksList() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Available Copies"
-                                            name="availableCopies"
+                                            label={language === 'English' ? 'Available copies' : 'Dostępne kopie'}
+                                            name='availableCopies'
                                             type="number"
                                             value={formik.values.availableCopies}
                                             onChange={formik.handleChange}
@@ -189,7 +193,7 @@ function BooksList() {
                                         type="submit"
                                         disabled={!(formik.isValid && formik.dirty)}
                                     >
-                                        Add Book
+                                        {language === 'English' ? 'Add book' : 'Dodaj książkę'}
                                     </Button>
                                 </Box>
                             </form>

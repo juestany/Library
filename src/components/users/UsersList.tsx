@@ -5,10 +5,13 @@ import * as yup from 'yup';
 import MenuAppBar from "../MenuAppBar";
 import User from "./User";
 import { useApi } from "../../api/ApiProvider";
+import {useLanguage} from "../../api/LanguageProvider";
 
 function UsersList() {
     const apiClient = useApi();
     const [users, setUsers] = useState<User[]>([]);
+    // @ts-ignore
+    const { language } = useLanguage();
 
     const onSubmit = useCallback(
         (values: User, formik: any) => {
@@ -46,17 +49,17 @@ function UsersList() {
 
     return (
         <>
-            <MenuAppBar />
+            <MenuAppBar/>
+            <h1>{language === 'English' ? 'Users' : 'Użytkownicy'}</h1>
             <Container style={{marginTop: '2rem'}}>
                 <table className="table">
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Username</th>
+                        <th>{language === 'English' ? 'Username' : 'Nazwa użytkownika'}</th>
                         <th>E-mail</th>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>Password</th>
+                        <th>{language === 'English' ? 'Name' : 'Imię'}</th>
+                        <th>{language === 'English' ? 'Role' : 'Rola'}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -68,13 +71,12 @@ function UsersList() {
                             email={user.email}
                             name={user.name}
                             role={user.role}
-                            password={user.password}
                         />
                     ))}
                     </tbody>
                 </table>
                 <Box mt={4}>
-                    <h3>Add a User</h3>
+                    <h3>{language === 'English' ? 'Add a User' : 'Dodaj użytkownika'}</h3>
                     <Formik
                         initialValues={{
                             id: 0,
@@ -82,7 +84,6 @@ function UsersList() {
                             email: '',
                             name: '',
                             role: '',
-                            password: ''
                         }}
                         onSubmit={onSubmit}
                         validationSchema={validationSchema}
@@ -94,7 +95,7 @@ function UsersList() {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Username"
+                                            label={language === 'English' ? 'Username' : 'Nazwa użytkownika'}
                                             name="username"
                                             value={formik.values.username}
                                             onChange={formik.handleChange}
@@ -118,7 +119,7 @@ function UsersList() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Name"
+                                            label={language === 'English' ? 'Name' : 'Imię'}
                                             name="name"
                                             value={formik.values.name}
                                             onChange={formik.handleChange}
@@ -130,7 +131,7 @@ function UsersList() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Role"
+                                            label={language === 'English' ? 'Role' : 'Rola'}
                                             name="role"
                                             value={formik.values.role}
                                             onChange={formik.handleChange}
@@ -142,7 +143,7 @@ function UsersList() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Password"
+                                            label={language === 'English' ? 'Password' : 'Hasło'}
                                             name="password"
                                             value={formik.values.password}
                                             onChange={formik.handleChange}
@@ -152,17 +153,17 @@ function UsersList() {
                                             fullWidth
                                         />
                                     </Grid>
-                                <Box mt={2} style={{marginBottom: '2rem'}}>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        type="submit"
-                                        disabled={!(formik.isValid && formik.dirty)}
-                                    >
-                                        Add User
-                                    </Button>
-                                </Box>
-                                    </Grid>
+                                    <Box mt={2} style={{marginBottom: '2rem'}}>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            type="submit"
+                                            disabled={!(formik.isValid && formik.dirty)}
+                                        >
+                                            {language === 'English' ? 'Add a user' : 'Dodaj użytkownika'}
+                                        </Button>
+                                    </Box>
+                                </Grid>
                             </form>
                         )}
                     </Formik>

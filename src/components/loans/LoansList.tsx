@@ -5,10 +5,13 @@ import * as yup from 'yup';
 import MenuAppBar from "../MenuAppBar";
 import Loan from "./Loan";
 import { useApi } from "../../api/ApiProvider";
+import {useLanguage} from "../../api/LanguageProvider";
 
 function LoansList() {
     const apiClient = useApi();
     const [loans, setLoans] = useState<Loan[]>([]);
+    // @ts-ignore
+    const { language } = useLanguage();
 
     const onSubmit = useCallback(
         (values: Loan, formik: any) => {
@@ -46,17 +49,18 @@ function LoansList() {
 
     return (
         <>
-            <MenuAppBar />
+            <MenuAppBar/>
+            <h1>{language === 'English' ? 'Loans' : 'Wypożyczenia'}</h1>
             <Container style={{marginTop: '2rem'}}>
                 <table className="table">
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Book ID</th>
-                        <th>User ID</th>
-                        <th>Loan Date</th>
-                        <th>Loan Period</th>
-                        <th>Return Date</th>
+                        <th>{language === 'English' ? 'Book ID' : 'ID książki'}</th>
+                        <th>{language === 'English' ? 'User ID' : 'ID czytelnika'}</th>
+                        <th>{language === 'English' ? 'Loan date' : 'Data wypożyczenia'}</th>
+                        <th>{language === 'English' ? 'Loan period' : 'Okres wypożyczenia'}</th>
+                        <th>{language === 'English' ? 'Return date' : 'Data zwrotu'}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -74,7 +78,7 @@ function LoansList() {
                     </tbody>
                 </table>
                 <Box mt={4}>
-                    <h3>Add a Loan</h3>
+                    <h3>{language === 'English' ? 'Add a loan' : 'Dodaj wypożyczenie'}</h3>
                     <Formik
                         initialValues={{
                             id: 0,
@@ -94,7 +98,7 @@ function LoansList() {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Book ID"
+                                            label={language === 'English' ? 'Book ID' : 'ID książki'}
                                             name="bookId"
                                             type="number"
                                             value={formik.values.bookId}
@@ -107,7 +111,7 @@ function LoansList() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="User ID"
+                                            label={language === 'English' ? 'User ID' : 'ID czytelnika'}
                                             name="userId"
                                             value={formik.values.userId}
                                             onChange={formik.handleChange}
@@ -119,10 +123,10 @@ function LoansList() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Loan Date"
+                                            label={language === 'English' ? 'Loan date' : 'Data wypożyczenia'}
                                             name="loanDate"
                                             type="date"
-                                            InputLabelProps={{ shrink: true }}
+                                            InputLabelProps={{shrink: true}}
                                             value={formik.values.loanDate}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
@@ -133,7 +137,7 @@ function LoansList() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Loan Period"
+                                            label={language === 'English' ? 'Loan period' : 'Okres wypożyczenia'}
                                             name="loanPeriod"
                                             value={formik.values.loanPeriod}
                                             onChange={formik.handleChange}
@@ -145,10 +149,9 @@ function LoansList() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Return Date"
-                                            name="returnDate"
+                                            name={language === 'English' ? 'Return date' : 'Data zwrotu'}
                                             type="date"
-                                            InputLabelProps={{ shrink: true }}
+                                            InputLabelProps={{shrink: true}}
                                             value={formik.values.returnDate}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
@@ -165,7 +168,7 @@ function LoansList() {
                                         type="submit"
                                         disabled={!(formik.isValid && formik.dirty)}
                                     >
-                                        Add Loan
+                                        {language === 'English' ? 'Add loan' : 'Dodaj wypożyczenie'}
                                     </Button>
                                 </Box>
                             </form>
