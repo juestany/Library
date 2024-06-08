@@ -42,12 +42,12 @@ function UsersList() {
             console.log(response.data);
             setUsers(response.data);
         });
-    }, []);
+    }, [apiClient]);
 
     return (
         <>
             <MenuAppBar />
-            <Container>
+            <Container style={{marginTop: '2rem'}}>
                 <table className="table">
                     <thead>
                     <tr>
@@ -152,7 +152,7 @@ function UsersList() {
                                             fullWidth
                                         />
                                     </Grid>
-                                <Box mt={2}>
+                                <Box mt={2} style={{marginBottom: '2rem'}}>
                                     <Button
                                         variant="contained"
                                         color="primary"

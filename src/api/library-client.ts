@@ -4,11 +4,41 @@ import Cookies from "universal-cookie";
 
 const cookies = new Cookies()
 
+interface RefreshTokenResponse {
+    token: string;
+}
+
 export type ClientResponse<T> = {
     success: boolean;
     data: T;
     statusCode: number;
 };
+
+export async function refreshToken(): Promise<string | null> {
+    try {
+        const refreshToken = cookies.get('refreshToken');
+
+        if (!refreshToken) {
+            throw new Error('No refresh token found');
+        }
+
+        const response: AxiosResponse<RefreshTokenResponse> = await axios.post('/refresh_token', {
+            refreshToken,
+        });
+
+        const newAccessToken = response.data.token;
+
+        if (newAccessToken) {
+            cookies.set('token', newAccessToken);
+            return newAccessToken;
+        } else {
+            throw new Error('Invalid refresh token response');
+        }
+    } catch (error) {
+        console.error('Token refresh failed:', error);
+        return null;
+    }
+}
 
 export class LibraryClient {
     private client: AxiosInstance;
@@ -76,7 +106,7 @@ export class LibraryClient {
 
         try {
             const response = await this.client.get('/api/books');
-            console.log(response.data)
+            console.log(response)
 
             return {
                 success: true,
@@ -85,6 +115,10 @@ export class LibraryClient {
             };
         } catch (error) {
             const axiosError = error as AxiosError<Error>;
+
+            if(axiosError.response?.status === 403) {
+                await refreshToken()
+            }
 
             return {
                 success: false,

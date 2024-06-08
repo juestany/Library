@@ -38,6 +38,7 @@ const onSubmit = useCallback(
     );
 
     return (
+        <>
         <Formik
             initialValues={{ username: '', password: '' }}
             onSubmit={onSubmit}
@@ -52,6 +53,7 @@ const onSubmit = useCallback(
                     onSubmit={formik.handleSubmit}
                     noValidate
                 >
+                    <h1>Library</h1>
                     <TextField
                         id="username"
                         label="Username"
@@ -75,16 +77,17 @@ const onSubmit = useCallback(
                     />
                     <Button
                         variant="contained"
-                        startIcon={<LoginIcon />}
+                        startIcon={<LoginIcon/>}
                         type="submit"
                         form="singForm"
                         disabled={!(formik.isValid && formik.dirty)}
                     >
-                        Sign in
+                        Log in
                     </Button>
                 </form>
             )}
         </Formik>
+        </>
     );
 }
 

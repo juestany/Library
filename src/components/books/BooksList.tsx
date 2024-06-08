@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import Book from './Book';
-import axios from 'axios';
 import * as yup from 'yup';
 import MenuAppBar from "../MenuAppBar";
 import { TextField, Button, Grid, Box, Container } from '@mui/material'
@@ -10,21 +9,22 @@ import {Formik} from "formik";
 function BooksList() {
 
     const apiClient = useApi();
-    const [books, setBooks] = useState<Book[]>([]);
+    const [books, setBooks] = useState<Book[]>([])
 
     const onSubmit = useCallback(
         (values: Book, formik: any) => {
             apiClient.addBook(values).then((response) => {
                 console.log(response);
                 if (response.success) {
-                    setBooks([...books, response.data]);
+                    const newBooks = [...books, response.data];
+                    setBooks(newBooks);
                     formik.resetForm();
                 } else {
                     console.error('Error adding book');
                 }
             });
         },
-        [apiClient]
+        [apiClient, books]
     );
 
     const validationSchema = useMemo(
@@ -48,15 +48,17 @@ function BooksList() {
 
     useEffect(() => {
         apiClient.getBooks().then((response) => {
-            // console.log(response.data);
-            setBooks(response.data);
+            console.log(response.data);
+            if (response.data != null) {
+                setBooks(response.data);
+            }
         });
-    }, []);
+    }, [apiClient]);
 
     return (
         <>
             <MenuAppBar />
-            <Container>
+            <Container style={{marginTop: '2rem'}}>
                 <table className="table">
                     <thead>
                     <tr>
@@ -180,7 +182,7 @@ function BooksList() {
                                         />
                                     </Grid>
                                 </Grid>
-                                <Box mt={2}>
+                                <Box mt={2} style={{marginBottom: '2rem'}}>
                                     <Button
                                         variant="contained"
                                         color="primary"

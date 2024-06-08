@@ -22,7 +22,7 @@ export default function MenuAppBar() {
                 <Link to="/api/home" style={{ textDecoration: 'none', color: 'inherit' }}>
                     <IconButton size="large" edge="start" color="inherit" aria-label="menu">
                         <Typography variant="h6" component="div">
-                            Homepage
+                            Home
                         </Typography>
                     </IconButton>
                 </Link>

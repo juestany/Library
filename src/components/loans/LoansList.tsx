@@ -22,7 +22,7 @@ function LoansList() {
                 }
             });
         },
-        [apiClient]
+        [apiClient, loans]
     );
 
     const validationSchema = useMemo(
@@ -42,12 +42,12 @@ function LoansList() {
             // console.log(response.data);
             setLoans(response.data);
         });
-    }, []);
+    }, [apiClient]);
 
     return (
         <>
             <MenuAppBar />
-            <Container>
+            <Container style={{marginTop: '2rem'}}>
                 <table className="table">
                     <thead>
                     <tr>
@@ -158,7 +158,7 @@ function LoansList() {
                                         />
                                     </Grid>
                                 </Grid>
-                                <Box mt={2}>
+                                <Box mt={2} style={{marginBottom: '2rem'}}>
                                     <Button
                                         variant="contained"
                                         color="primary"
